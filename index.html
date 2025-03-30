@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সালামি পাঠাও</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #FFEDFA, #FFEDFA);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: #AC1754;
+        }
+        
+        .poem {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 30px 0;
+            line-height: 1.5;
+            color: #E53888;
+        }
+        
+        .image-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 35px;
+            border-radius:5%;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #E53888, #AC1754);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 56, 136, 0.4);
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 56, 136, 0.6);
+        }
+        
+        .form-container {
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .form-container h2 {
+            color: #AC1754;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #E53888;
+        }
+        
+        .input-group input, 
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #F7A8C4;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        .input-group input:focus, 
+        .input-group textarea:focus {
+            border-color: #E53888;
+            outline: none;
+        }
+        
+        .input-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* Animation Styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            animation: confetti-fall 3s ease-in-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            text-align: center;
+            animation: popup 0.5s forwards;
+            display: none;
+        }
+        
+        @keyframes popup {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            80% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .success-message h2 {
+            color: #E53888;
+            margin-bottom: 20px;
+        }
+        
+        .success-message p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .close-btn {
+            background-color: #F37199;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background-color: #E53888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <h1>সালামি পাঠাও</h1>
+        
+        <div class="poem">
+            মাছ উড়ে আকাশে<br>
+            সালামি দেও বিকাশে
+        </div>
+        
+        <div class="image-container">
+            <img src="bka.png" alt="সালামি ছবি">
+        </div>
+        
+        <button class="btn" id="send-btn">সালামি পাঠামু</button>
+    </div>
+    
+    <div class="container form-container" id="form-container">
+        <h2>সর্বনিম্ন ১০ টাকা পাঠাও</h2>
+        
+        <form id="salami-form">
+            <div class="input-group">
+                <label for="name">তোমার নাম</label>
+                <input type="text" id="name" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="amount">কত দিবা</label>
+                <input type="number" id="amount" min="10" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="message">আমাকে কি বলতে চাও</label>
+                <textarea id="message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">সালামি পাঠাও</button>
+        </form>
+    </div>
+    
+    <div class="success-message" id="success-message">
+        <h2>অভিনন্দন!</h2>
+        <p>তোমার সালামি হাওয়াই সালামি পাইছি</p>
+        <button class="close-btn" id="close-btn">ধন্যবাদ</button>
+        <br /><br />
+        
+        <p style="font-size:10px;">ইতি,
+        <br />তোমাগো আবিদ</p>
+        
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sendBtn = document.getElementById('send-btn');
+            const formContainer = document.getElementById('form-container');
+            const mainContainer = document.getElementById('main-container');
+            const salamiForm = document.getElementById('salami-form');
+            const successMessage = document.getElementById('success-message');
+            const closeBtn = document.getElementById('close-btn');
+            
+            // সালামি পাঠান বাটনে ক্লিক করলে ফর্ম দেখাবে
+            sendBtn.addEventListener('click', function() {
+                mainContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            });
+            
+            // ফর্ম সাবমিট করলে
+            salamiForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // এনিমেশন শুরু
+                startConfetti();
+                
+                // ফর্ম লুকাও
+                formContainer.style.display = 'none';
+                
+                // সাফল্য বার্তা দেখাও
+                setTimeout(() => {
+                    successMessage.style.display = 'block';
+                }, 1500);
+            });
+            
+            // ক্লোজ বাটনে ক্লিক করলে
+            closeBtn.addEventListener('click', function() {
+                successMessage.style.display = 'none';
+                mainContainer.style.display = 'block';
+                salamiForm.reset();
+            });
+            
+            // কনফেটি এনিমেশন ফাংশন
+            function startConfetti() {
+                const colors = ['#AC1754', '#E53888', '#F37199', '#F7A8C4', '#FFD700', '#00FF00', '#00BFFF'];
+                
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        
+                        // র্যান্ডম পজিশন
+                        const left = Math.random() * 100;
+                        confetti.style.left = `${left}vw`;
+                        
+                        // র্যান্ডম কালার
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.backgroundColor = color;
+                        
+                        // র্যান্ডম সাইজ
+                        const size = Math.random() * 10 + 5;
+                        confetti.style.width = `${size}px`;
+                        confetti.style.height = `${size}px`;
+                        
+                        // র্যান্ডম ডিউরেশন
+                        const duration = Math.random() * 2 + 2;
+                        confetti.style.animationDuration = `${duration}s`;
+                        
+                        document.body.appendChild(confetti);
+                        
+                        // অটো রিমুভ
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, duration * 1000);
+                    }, i * 30);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
